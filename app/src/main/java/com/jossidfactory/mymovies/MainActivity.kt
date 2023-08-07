@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleOutline
@@ -57,9 +59,9 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun MediaList() {
-    LazyColumn(
+    LazyRow(
         contentPadding = PaddingValues(4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(getMedia()) {item ->
             MediaListItem(item)
@@ -90,7 +92,9 @@ fun ButtonText() {
 //@Preview(showBackground = true)
 @Composable
 fun MediaListItem(item: MediaItem) {
-    Column {
+    Column(
+        modifier = Modifier.width(200.dp)
+    ) {
         Box(
             modifier = Modifier
                 .height(200.dp)
