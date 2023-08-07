@@ -5,19 +5,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +35,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import com.jossidfactory.mymovies.ui.theme.MyMoviesTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,9 +47,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MediaItem()
+                    MediaList()
                 }
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun MediaList() {
+    LazyColumn(
+        contentPadding = PaddingValues(4.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        items(getMedia()) {item ->
+            MediaListItem(item)
         }
     }
 }
@@ -76,9 +87,9 @@ fun ButtonText() {
         )
     }
 }
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun MediaItem() {
+fun MediaListItem(item: MediaItem) {
     Column {
         Box(
             modifier = Modifier
@@ -88,19 +99,19 @@ fun MediaItem() {
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = "https://picsum.photos/400/400?random=1",
+                    data = item.thumb,
                 ),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-
+            if(item.type == MediaItem.Type.VIDEO){
             Icon(
                 imageVector = Icons.Default.PlayCircleOutline,
                 contentDescription = null,
                 modifier = Modifier.size(92.dp),
                 tint = Color.White,
-            )
+            )}
         }
         Box(
             contentAlignment = Alignment.Center,
@@ -110,7 +121,7 @@ fun MediaItem() {
                 .padding(12.dp)
         ) {
             Text(
-                text ="Title 1",
+                text = item.title,
                 style = MaterialTheme.typography.titleSmall
                 )
         }
