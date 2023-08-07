@@ -21,8 +21,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jossidfactory.mymovies.ui.theme.MyMoviesTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,14 +40,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ButtonText()
+                    MediaItem()
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 400, heightDp = 200)
+//@Preview(showBackground = true, widthDp = 400, heightDp = 200)
 @Composable
 fun ButtonText() {
     Box(
@@ -51,15 +56,18 @@ fun ButtonText() {
     ) {
         Text(
             text ="Hello World",
-            modifier = Modifier
-                .clickable { /*TODO*/ }
-                .background(Color.Cyan)
-                .border(width = 2.dp, color = Color.Blue)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+            color = Color.Red,
+            fontSize = 25.sp,
+            fontStyle = FontStyle.Italic,
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = FontFamily.Monospace,
+            letterSpacing = 5.sp,
+            textDecoration = TextDecoration.Underline,
+
         )
     }
 }
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun MediaItem() {
     Column {
@@ -71,7 +79,19 @@ fun MediaItem() {
         ) {
 
         }
-        Text("Title 1")
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.secondary)
+                .padding(12.dp)
+        ) {
+            Text(
+                text ="Title 1",
+                style = MaterialTheme.typography.titleSmall
+                )
+        }
+
     }
 }
 
